@@ -81,9 +81,9 @@
             },
         },
         watch: {
-            // $route (to, from) {
-            //     this.$router.go(0)
-            // }
+            $route (to, from) {
+                this.getArticleByTagName()
+            }
         },
         created(){
             this.getArticleByTagName()
