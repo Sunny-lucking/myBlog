@@ -82,6 +82,7 @@
         },
         watch: {
             $route (to, from) {
+
                 this.getArticleByTagName()
             }
         },

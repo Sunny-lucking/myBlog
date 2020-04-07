@@ -95,8 +95,10 @@
                 }
             },
             async getAllTags(){
-                 let {status,data:{tags}} = await this.$http.get(BASE_URL+'/api/tag/getAllTags')
-                 this.tags = tags
+                console.log("我进来获取表情");
+                let {status,data:{tags}} = await this.$http.get(BASE_URL+'/api/tag/getAllTags')
+                console.log(tags);
+                this.tags = tags
                  this.$store.commit('setTagList',tags)
             },
             goToCategoryByKeyWord(){

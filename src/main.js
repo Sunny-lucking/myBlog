@@ -1,10 +1,10 @@
-import Vue from 'vue'
+// import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
 import './assets/reset.scss'
-import ElementUI from 'element-ui';
-import 'element-ui/lib/theme-chalk/index.css';
+// import ElementUI from 'element-ui';
+// import 'element-ui/lib/theme-chalk/index.css';
 import http from "./../https"
 import moment from "moment"
 import {BASE_URL} from "./global/util";
@@ -16,7 +16,7 @@ if ('addEventListener' in document) {
     }, false);
 }
 
-Vue.use(ElementUI);
+// Vue.use(ElementUI);
 Vue.config.productionTip = false;
 Vue.use(http);
 

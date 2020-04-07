@@ -1,5 +1,5 @@
 const MyHttpServer = {}
-import axios from 'axios'
+// import axios from 'axios'
 
 //响应拦截
 axios.interceptors.request.use(config=>{
