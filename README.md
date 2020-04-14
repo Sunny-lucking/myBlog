@@ -12,3 +12,9 @@
 
 
 使用gzip压缩，首屏渲染从10s左右降低到5s左右
+
+
+将静态资源设置为强缓存，时间为1年
+```js
+app.use(express.static(path.join(config.publicPath, 'dist'), { maxAge: 60 * 1000 * 60 * 24 * 365 }))
+```
