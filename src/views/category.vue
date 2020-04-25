@@ -106,7 +106,6 @@
 
             },
             handleSizeChange(val) {
-                console.log(`每页 ${val} 条`);
             },
             handleCurrentChange(val) {
                 let _this = this
@@ -118,7 +117,6 @@
                         keyWord:_this.$route.query.keyWord
                     }
                 })
-                console.log(`当前页: ${val}`);
             },
         }
     }

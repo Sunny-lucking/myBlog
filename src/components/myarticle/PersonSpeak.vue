@@ -103,11 +103,9 @@
             const token = localStorage.blogFrontToken;
             // 解析token
             this.user = jwt_decode(token);
-            console.log(this.user);
         },
         methods:{
             async emitForShowDrawer(targetUserId){
-                console.log("触发子组件");
                 // let userInfo = await this.$axios.get('/users/getUser');
                 // console.log(userInfo);
                 this.$emit('onclickForShowDrawer',targetUserId)
@@ -116,9 +114,7 @@
                 if (!this.user)
                     this.$router.push('/login')
                 let _this = this
-                console.log(_this.inputOfRecall);
-                console.log(_this.$route.query.articleID);
-                console.log(username);
+
                 // console.log(userId);
                 this.$http.post(BASE_URL+'/api/comment/addRecall',{
                     articleID:_this.$route.query.articleID,
@@ -138,8 +134,6 @@
             }
         },
         mounted(){
-            console.log("commentscommentscommentscomments");
-            console.log(this.comments);
         }
 
     }

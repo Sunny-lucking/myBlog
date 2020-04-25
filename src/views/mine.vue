@@ -38,6 +38,9 @@
             changeSelect(value){
                 this.selected = value;
             }
+        },
+        mounted(){
+
         }
     }
 </script>

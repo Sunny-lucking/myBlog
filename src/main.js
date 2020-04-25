@@ -34,7 +34,32 @@ Vue.prototype.haveNotAuth = function () {
 }
 Vue.prototype.imgUrlFormat = function(url){
     return `${BASE_URL}/${url}`
-},
+}
+const errors = []
+const getTimestamp = () => {
+    return new Date()
+}
+window.addEventListener('error', (event) => {
+    console.log(event);
+    errors.push({time: getTimestamp(), content: event.target,path:event.path})
+},true)
+Vue.config.errorHandler = error => {
+    console.log(error);
+    errors.push({time: getTimestamp(), content: error.stack})
+}
+
+window.onerror = (message, source, lineno, colno, error) => {
+    errors.push({time: getTimestamp(), content: error.stack})
+    return true
+}
+
+
+
+setInterval(()=>{
+    // if(errors.length > 0){
+    //     console.log(errors);
+    // }
+},3000)
 new Vue({
   router,
   store,

@@ -78,7 +78,6 @@
         },
         watch:{
             fileList(v){
-                console.log(v);
             }
         },
         data () {
@@ -190,7 +189,6 @@
                 this.form_data.append('content',this.content);
                 this.form_data.append('username',this.user.username);
                 this.form_data.append('_id',this.user._id);
-                console.log(this.form_data);
                 let {status,data:{msg,code}} = await this.$http.post(BASE_URL+'/api/article/addArticle',this.form_data,{
                     headers: {
                         "Content-Type": "multipart/form-data"
@@ -215,7 +213,6 @@
             },
             upLoadImage(){
                 let imageFile = this.$refs.imageInput.files[0]
-                console.log(imageFile);
 
                 let reader = new FileReader();
                 reader.readAsDataURL(imageFile);
@@ -248,15 +245,12 @@
 
         },
         mounted() {
-            console.log(this.content);
             // console.log(this.$refs.file.files[0]);
             if (localStorage.getItem('blogFrontToken')) {
                 const token = localStorage.blogFrontToken;
                 // 解析token
                 this.user = jwt_decode(token);
             }
-            console.log("有没有人  ");
-            console.log(this.user);
 
         }
     }

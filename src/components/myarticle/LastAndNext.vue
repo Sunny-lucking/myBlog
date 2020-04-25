@@ -22,13 +22,9 @@
         name: "LastAndNext",
         props:['lastArticle','nextArticle'],
         mounted(){
-            console.log("哈哈");
-            console.log(this.lastArticle);
-            console.log(this.nextArticle);
         },
         methods:{
             onclickForReflesh(){
-                console.log("hah");
                 // this.$router.go(0)
             }
         }

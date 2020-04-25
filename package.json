@@ -11,6 +11,7 @@
   "dependencies": {
     "axios": "^0.19.2",
     "comment": "0.0.2",
+    "compression-webpack-plugin": "^3.1.0",
     "core-js": "^3.6.4",
     "crypto-js": "^4.0.0",
     "echarts": "^4.6.0",

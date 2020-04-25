@@ -18,3 +18,42 @@
 ```js
 app.use(express.static(path.join(config.publicPath, 'dist'), { maxAge: 60 * 1000 * 60 * 24 * 365 }))
 ```
+
+### 用户体验提升
+
+- 搜索框实现搜索联想-采用防抖提升性能
+
+```js
+watch:{
+    keyWord(val){
+        if (val){
+            this.deBounce(this.getSearchListBykeyWord,1000)
+        }else{
+            this.searchList = []
+        }
+
+    },
+}
+
+onClickOfSearchItem(searchItem){
+    this.keyWord =  searchItem
+    this.$nextTick(()=>{
+        this.searchList = []
+    })
+},
+async getSearchListBykeyWord(){
+    let {status,data:{titleList}} = await this.$http.get(encodeURI(BASE_URL+'/api/article/getTitleListByKeyWord?keyWord='+this.keyWord))
+    console.log(titleList);
+    this.searchList = titleList
+},
+// 防抖函数
+deBounce: (function () {
+    let timer = 0;
+    return function(callback, ms) {
+        clearTimeout(timer);
+        timer = setTimeout(callback, ms);
+    };
+
+})()
+},
+```

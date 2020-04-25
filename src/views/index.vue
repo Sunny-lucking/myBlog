@@ -17,10 +17,13 @@
           <Statistic></Statistic>
           <Link/>
           <Advertisement></Advertisement>
+
+          <!--<script src="404.js"></script>-->
         </div>
       </div>
 
     </div>
+
 
   </div>
 </template>
@@ -71,13 +74,11 @@
             },
         },
         mounted(){
-            console.log(this);
             this.getLatestArticle()
             if (localStorage.getItem('blogFrontToken')){
                 const token = localStorage.blogFrontToken;
                 // 解析token
                 this.user = jwt_decode(token);
-                console.log(this.user);
             }
         },
         // beforeRouteEnter(to,from,next){

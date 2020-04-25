@@ -22,6 +22,9 @@
                 ]
             }
         },
+        mounted(){
+
+        }
     }
 </script>
 

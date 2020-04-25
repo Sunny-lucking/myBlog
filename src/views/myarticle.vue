@@ -107,7 +107,6 @@
             async getArticle(){
                 let {status,data:{article}} = await this.$http.get(BASE_URL+'/api/article/getOneArticle?articleID='+this.$route.query.articleID);
                 this.article = article
-                console.log(this.article);
             },
             async getComment(){
                 let {data:{comments}} = await this.$http.get(BASE_URL+'/api/comment/getComment?articleID='+this.$route.query.articleID);
@@ -119,7 +118,6 @@
                 this.lastArticle = lastArticle
             },
             closeDrawer(){
-                console.log("触发父组件");
                 let _this = this
                 this.$confirm('确认关闭？')
                     .then(_ => {
@@ -129,7 +127,6 @@
                     .catch(_ => {});
             },
             onclickForShowDrawer(targetUserId){
-                console.log("targetUserId:"+targetUserId);
                 this.targetUserId = targetUserId
                 this.isShowDrawer = true
 
@@ -137,7 +134,6 @@
             //分享到QQ空间(可用)
             shareToRoom() {
                 //自定义内容
-                console.log("haha");
                 const share = {
                     title: "和尚",
                     desc: "深度好文",
@@ -215,7 +211,6 @@
             const token = localStorage.blogFrontToken;
             // 解析token
             this.user = jwt_decode(token);
-            console.log(this.user);
 
         }
 

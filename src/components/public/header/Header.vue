@@ -57,10 +57,14 @@
                     </el-dropdown-menu>
                 </el-dropdown>
             </div>
-            <div class="menu pull-right">
-                <div class="form-search">
+            <div class="menu pull-right" >
+                <div class="form-search" style="position: relative">
                     <input type="text" placeholder="输入你要查找的内容"  class="search-input" v-model="keyWord" @keyup.enter="goToCategoryByKeyWord">
                     <button class="searchbtn el-icon-search" @click="goToCategoryByKeyWord"></button>
+                    <ul class="search-list" v-show="searchList">
+                        <li class="search-item" v-for="(item,index) in searchList" @click="onClickOfSearchItem(item.title)">{{item.title}}</li>
+                    </ul>
+
                 </div>
 
             </div>
@@ -77,12 +81,16 @@
             return{
                 keyWord:'',
                 tags:[],
-                user:''
+                user:'',
+                searchList:[]
             }
         },
         computed:{
         },
         methods:{
+            test(){
+                console.log("test");
+            },
             onClickForExit(){
                 localStorage.removeItem('blogFrontToken')
                 this.user = null
@@ -95,9 +103,7 @@
                 }
             },
             async getAllTags(){
-                console.log("我进来获取表情");
                 let {status,data:{tags}} = await this.$http.get(BASE_URL+'/api/tag/getAllTags')
-                console.log(tags);
                 this.tags = tags
                  this.$store.commit('setTagList',tags)
             },
@@ -110,6 +116,26 @@
                     }
                 })
             },
+            onClickOfSearchItem(searchItem){
+                this.keyWord =  searchItem
+                this.$nextTick(()=>{
+                    this.searchList = []
+                })
+            },
+            async getSearchListBykeyWord(){
+                let {status,data:{titleList}} = await this.$http.get(encodeURI(BASE_URL+'/api/article/getTitleListByKeyWord?keyWord='+this.keyWord))
+                console.log(titleList);
+                this.searchList = titleList
+            },
+            // 防抖函数
+            deBounce: (function () {
+                let timer = 0;
+                return function(callback, ms) {
+                    clearTimeout(timer);
+                    timer = setTimeout(callback, ms);
+                };
+
+            })()
         },
         created(){
             this.getAllTags()
@@ -118,8 +144,20 @@
                // 解析token
                this.user = jwt_decode(token);
            }
-            console.log(this.user);
         },
+        watch:{
+
+            keyWord(val){
+                if (val){
+                    this.deBounce(this.getSearchListBykeyWord,1000)
+                }else{
+                    this.searchList = []
+                }
+
+            },
+
+
+        }
 
     }
 </script>
@@ -253,6 +291,24 @@
                         &.el-icon-search{
                             font-size: 14px;
                             font-weight: bolder;
+                        }
+                    }
+                    .search-list{
+                        width: 100%;
+                        text-align: center;
+                        position: absolute;
+                        left: 0;
+                        top: 35px;
+                        background-color: white;
+                        border-radius: 5px;
+                        .search-item{
+                            height: 30px;
+                            line-height: 30px;
+                            font-size: 20px;
+                            cursor: pointer;
+                            &:hover{
+                                background-color: honeydew;
+                            }
                         }
                     }
                 }
