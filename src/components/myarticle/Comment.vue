@@ -114,7 +114,17 @@
                             this.$emit('updateComment')
                         }
                     })
-            }
+            },
+            getTargetUser(){
+                let _this =this;
+                this.$http.get(BASE_URL+'/api/user/getOneUser?userId='+_this.user._id)
+                    .then((res)=>{
+
+                        _this.user = res.data.user[0];
+                        console.log(_this.user);
+                        console.log('_this.user');
+                    })
+            },
         },
         mounted(){
             // this.getUser()
@@ -122,7 +132,10 @@
             const token = localStorage.blogFrontToken;
             // 解析token
             this.user = jwt_decode(token);
-            // console.log(this.user);
+            this.getTargetUser()
+            console.log("user:");
+            console.log(this.user);
+
             console.log("我在comment created");
             console.log(this.comments);
             this.getCountOfSpeaker()

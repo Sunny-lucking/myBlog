@@ -77,6 +77,15 @@ export function deBounce () {
     :src="imgUrlFormat(item.cover)"
     fit="cover"></el-image>
 ```
+# 文章详情页功能
+**总体展示**
+![](https://imgkr.cn-bj.ufileos.com/9b5115bc-dcfc-4a9b-888e-2ddd7d990c34.png)
+
+![](https://imgkr.cn-bj.ufileos.com/097c40e8-fbfc-4ace-97f0-cc46aa1c8a03.png)
+
+![](https://imgkr.cn-bj.ufileos.com/c3b9ee18-99a1-4a45-af79-52301690c1c3.png)
+
+![](https://imgkr.cn-bj.ufileos.com/146360e9-3837-40a7-bdd5-bed73ee01254.png)
 
 
 ## 优化打包体积
