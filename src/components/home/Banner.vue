@@ -29,9 +29,9 @@
         data(){
             return{
                 imgs:[
-                    {imgUrl:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1583423587914&di=49dd10e1bce48017a0617bbe3aacd44f&imgtype=0&src=http%3A%2F%2Fi0.hdslb.com%2Fbfs%2Farticle%2F2192c9cdcb0f936a74e0cafa828bff25af04da5d.jpg'},
+                    {imgUrl:'http://news.mydrivers.com/img/20110128/03383685.jpg'},
                     {imgUrl:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1583423620856&di=6266ecfe2984e8dacf0a513f413fb3b3&imgtype=0&src=http%3A%2F%2Fimg.pconline.com.cn%2Fimages%2Fupload%2Fupc%2Ftx%2Fwallpaper%2F1212%2F26%2Fc2%2F16899702_1356495029899.jpg'},
-                    {imgUrl:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1583423716541&di=0f9a3ccec01fa0939fd11dabbd002c15&imgtype=0&src=http%3A%2F%2Fi1.073img.com%2F120703%2F4822598_163517_5.jpg'},
+                    {imgUrl:'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2368005470,2296787642&fm=26&gp=0.jpg'},
                 ]
             }
         },
