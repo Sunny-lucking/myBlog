@@ -29,7 +29,7 @@
 
 <script>
     import {BASE_URL} from "../global/util";
-    import Latest from "./../components/home/Latest"
+    import Latest from "./../components/category/Latest"
     import HotChater from "./../components/category/HotChater"
     import Statistic from "./../components/home/Statistic"
     import Link from "./../components/home/Link"

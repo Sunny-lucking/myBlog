@@ -1,15 +1,82 @@
 @[TOC](项目优化记录)
-
-## 1. 该项目性能提升方案
+# 性能提升
+## 1. 首屏加载提升方案
 1. 对于vue，elementui这些框架采用**CDN**的方式引入项目，使得项目的体积缩小，优化了首屏加载。
 2. 对于axios，router这些库也采用**CDN**方式引入。
 3. 资源压缩,其中**关闭sourcemap**，包的体积减少将近一半，sourcemap是为了方便线上调试用的，因为线上代码都是压缩过的，导致调试极为不便，而有了sourcemap，就等于加了个索引字典，出了问题可以定位到源代码的位置。 但是，这个玩意是每个js都带一个sourcemap，有时sourcemap会很大，拖累了整个项目加载速度，为了节省加载时间，我们将其关闭掉。就这一句话就可以关闭sourcemap了，很简单。
 ![](https://imgkr.cn-bj.ufileos.com/6196fefa-5136-4bb1-bfa4-9859f81316a7.png)
-4. 使用gzip压缩，文件体积缩小，优化了首屏加载。
+4. 使用**gzip压缩**，文件体积缩小，优化了首屏加载。
+5. 首页实现**下拉加载**更多，避免第一次加载数据过多，从而提升首屏渲染。
+6. 图片启用懒加载模式。位于不可见区域不展示
 
-5. 缓存方面，对于js和css采用了**强缓存**的缓存方式，时间为1年。对于html，以及数据库数据采用**协商缓存**方式，方便了数据的更新。
-6. 细节方面，搜索框采用了**防抖策略**，因而用户若还在输入中，则会取消之前的请求。
+## 2.使用过程的性能提升方案
+1. 缓存方面，对于js和css采用了**强缓存**的缓存方式，时间为1年。对于html，以及数据库数据采用**协商缓存**方式，方便了数据的更新。
+2. 防抖方面，搜索框采用了**防抖策略**，因而用户若还在输入中，则会取消之前的请求。
+3. 节流方面，首页列表下拉加载采用**节流策略**，防止用户因一次性多次下拉导致多次加载。
 
+
+**简单节流函数展示**
+```js
+// 节流函数
+export function throttle(fn){
+    let timer = null;
+    return function () {
+        if (!timer){
+            timer = setTimeout(function () {
+                fn();
+                timer = null;
+            },3000)
+        }
+    }
+}
+```
+
+**简单防抖函数展示**
+```js
+// 防抖函数
+export function deBounce () {
+    let timer = 0;
+    return function(callback, ms) {
+        clearTimeout(timer);
+        timer = setTimeout(callback, ms);
+    };
+}
+```
+
+
+# 首页功能
+**首页总体预览**
+
+![](https://imgkr.cn-bj.ufileos.com/da320717-6bbc-4775-8317-fe496ce1d0e7.png)
+
+![](https://imgkr.cn-bj.ufileos.com/aada9a58-081c-44ac-9179-698750bfcf1f.png)
+
+## 1.最新列表的展示
+
+**1.1 结合节流函数实现下拉加载更多内容**
+
+![](https://imgkr.cn-bj.ufileos.com/debf9db9-fb21-42c4-9dff-deb7a787e260.png)
+
+```js  
+ window.addEventListener('scroll',function () {
+    if (Math.ceil(scrollTop) + clientHeight >= scrollHeight) {
+        getMoreLatestThrottle();
+    }
+})
+```
+
+**1.2 结合Elementui实现图片懒加载模式**
+
+![](https://imgkr.cn-bj.ufileos.com/f0f9585e-decd-4123-9f66-a2b60435e165.png)
+
+
+```js
+ <el-image
+    lazy
+
+    :src="imgUrlFormat(item.cover)"
+    fit="cover"></el-image>
+```
 
 
 ## 优化打包体积

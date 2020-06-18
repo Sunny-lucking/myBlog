@@ -73,7 +73,7 @@
 </template>
 
 <script>
-    import {BASE_URL} from "../../../global/util";
+    import {BASE_URL,deBounce} from "../../../global/util";
     import jwt_decode from "jwt-decode";
     export default {
         name: "Header",
@@ -128,14 +128,14 @@
                 this.searchList = titleList
             },
             // 防抖函数
-            deBounce: (function () {
-                let timer = 0;
-                return function(callback, ms) {
-                    clearTimeout(timer);
-                    timer = setTimeout(callback, ms);
-                };
-
-            })()
+            // deBounce: (function () {
+            //     let timer = 0;
+            //     return function(callback, ms) {
+            //         clearTimeout(timer);
+            //         timer = setTimeout(callback, ms);
+            //     };
+            //
+            // })()
         },
         created(){
             this.getAllTags()
@@ -144,12 +144,13 @@
                // 解析token
                this.user = jwt_decode(token);
            }
+           this.GetSearchList = deBounce()
         },
         watch:{
 
             keyWord(val){
                 if (val){
-                    this.deBounce(this.getSearchListBykeyWord,1000)
+                    this.GetSearchList(this.getSearchListBykeyWord,1000)
                 }else{
                     this.searchList = []
                 }

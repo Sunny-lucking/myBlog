@@ -9,7 +9,7 @@
         <div class="content">
           <Recommend></Recommend>
           <Latest></Latest>
-          <p style="width: 100%;height: 30px;text-align: center;background-color:#909399;color: white;line-height: 30px" @click="goToCategoryByKeyWord">点击查看更多</p>
+
         </div>
         <div class="slider-bar">
           <HotTag></HotTag>

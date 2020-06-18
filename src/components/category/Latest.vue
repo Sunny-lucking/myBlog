@@ -1,11 +1,10 @@
 <template>
     <div class="latest">
-        <h4 class="latest-title">最新发布</h4>
-        <ul class="latest-list" v-if="articleOfLatest.length>0">
-            <router-link class="list-item"  tag="li" v-for="(item,index) in articleOfLatest" :key="index" :to="{name:'myarticle',query:{articleID:item._id}}">
+        <h4 class="latest-title">{{$route.query.tagName?$route.query.tagName:'最新发布'}}</h4>
+        <ul class="latest-list" v-if="$store.state.LatestList.length>0">
+            <router-link class="list-item"  tag="li" v-for="(item,index) in $store.state.LatestList" :key="index" :to="{name:'myarticle',query:{articleID:item._id}}">
                 <!--<img :src="item.cover" alt="" class="item-img">-->
                 <el-image
-                        lazy
                         style="width: 220px;height: 150px;border-radius: 5px;
                 cursor: pointer;"
                         :src="imgUrlFormat(item.cover)"
@@ -21,13 +20,8 @@
                 </div>
             </router-link>
 
-            <p v-if="isShowLoading"
-               v-loading="isShowLoading"
-               element-loading-text="拼命加载..."
-               style="width: 100%;height: 30px;text-align: center;background-color:#909399;color: white;line-height: 30px" ></p>
-            <p v-else style="width: 100%;height: 30px;text-align: center;background-color:#909399;color: white;line-height: 30px">已无更多</p>
-        </ul>
 
+        </ul>
         <div v-else style="margin: 0 auto;text-align: center">
             <img src="http://pic.90sjimg.com/design/00/93/88/11/5905a3b6cf4c4.png%21/fwfh/804x734/quality/90/unsharp/true/compress/true" alt="" style="width: 200px">
             <p style="font-weight: bolder">小羊提醒：暂时还没有评论哦，快来抢沙发吧！</p>
@@ -37,53 +31,25 @@
 
 <script>
     import {BASE_URL} from "../../global/util";
-    import {throttle} from "../../global/util";
 
     export default {
         name: "Latest",
         data(){
             return{
-                articleOfLatest:[],
-                pageNum:0,
-                isShowLoading:true
+                articleOfLatest:[]
             }
         },
         methods:{
             imgUrlFormat(url){
                 return `${BASE_URL}/${url}`
             },
-            async getLatestArticle(){
-                let {status,data:{articles}} = await this.$http.get(BASE_URL+'/api/article/getArticleOfLatest?pageNum='+ this.pageNum)
-                if (articles.length>0){
-                    this.articleOfLatest = [...this.articleOfLatest,...articles]
-                    this.pageNum ++;
-
-                }else {
-                    this.isShowLoading = false
-                }
-
-            },
-
+            // async getLatestArticle(){
+            //     let {status,data:{articles}} = await this.$http.get(BASE_URL+'/api/article/getArticleOfLatest')
+            //     this.articleOfLatest = articles
+            // },
         },
         created(){
-            this.getLatestArticle()
-        },
-        mounted(){
-            let _this = this;
-            let getMoreLatestThrottle = throttle(function () {
-                _this.getLatestArticle();
-            });
-            window.addEventListener('scroll',function () {
-                let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-                let clientHeight = document.documentElement.clientHeight || document.body.clientHeight;
-                let scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
-                if (Math.ceil(scrollTop) + clientHeight >= scrollHeight) {
-
-                    getMoreLatestThrottle();
-
-                }
-
-            })
+            // this.getLatestArticle()
         }
     }
 </script>
