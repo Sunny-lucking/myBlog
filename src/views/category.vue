@@ -95,6 +95,7 @@
                         let {status,data:{article,count,articleOfHot}} = await this.$http.get(encodeURI(BASE_URL+'/api/article/getArticleByTagName?tagName='+this.$route.query.tagName+"&pageIndex="+this.$route.query.pageIndex+"&size=10"))
                         this.$store.commit('setLatestList',article)
                         this.count = count
+                        console.log(count);
                         this.articleOfHot = articleOfHot
                     } else{
                         let {status,data:{article,count,articleOfHot}} = await this.$http.get(encodeURI(BASE_URL+'/api/article/getArticleByKeyWord?keyWord='+this.$route.query.keyWord+"&pageIndex="+this.$route.query.pageIndex+"&size=10"))

@@ -124,7 +124,6 @@
             },
             async getSearchListBykeyWord(){
                 let {status,data:{titleList}} = await this.$http.get(encodeURI(BASE_URL+'/api/article/getTitleListByKeyWord?keyWord='+this.keyWord))
-                console.log(titleList);
                 this.searchList = titleList
             },
             // 防抖函数
@@ -149,9 +148,12 @@
         watch:{
 
             keyWord(val){
-                if (val){
+                if (val.trim() !== ''){
+                    console.log('有了');
+                    console.log(val);
                     this.GetSearchList(this.getSearchListBykeyWord,1000)
                 }else{
+                    console.log("没有");
                     this.searchList = []
                 }
 

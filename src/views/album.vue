@@ -3,7 +3,12 @@
         <div class="container">
             <div class="masonry">
                 <div class="item" v-for="(item,index) in imglist" :key="index">
-                    <img :src=item.url alt="">
+                    <img :src="imgUrlFormat(item)" alt="">
+                    <!--<el-image-->
+                            <!--style="width: 220px;border-radius: 5px;-->
+                <!--cursor: pointer;"-->
+                            <!--:src="imgUrlFormat(item)"-->
+                            <!--fit="cover"></el-image>-->
                 </div>
             </div>
         </div>
@@ -11,19 +16,19 @@
 </template>
 
 <script>
+    import {BASE_URL} from "../global/util";
+
     export default {
         name: "album",
         data(){
             return {
-                imglist:[
-
-
-
-                ]
+                imglist:[],
             }
         },
-        mounted(){
-
+        async created(){
+            let {data:{imageList}} = await this.$http.get(encodeURI(BASE_URL+'/api/album/getAllImage'))
+            // console.log(imageList);
+            this.imglist = imageList
         }
     }
 </script>
