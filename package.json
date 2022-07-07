@@ -19,7 +19,7 @@
     "fastclick": "^1.0.6",
     "formidable": "^1.2.2",
     "jwt-decode": "^2.2.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "vue": "^2.6.11",
     "vue-quill-editor": "^3.0.6",
     "vue-router": "^3.1.5",
